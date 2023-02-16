@@ -1,0 +1,6 @@
+{
+  "dependencies": {
+    "latest": "^0.2.0",
+    "svelte": "^3.55.1"
+  }
+}
