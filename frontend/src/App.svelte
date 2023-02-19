@@ -1,11 +1,19 @@
 <script>
-  let message;
+  let board_list = []
 
-  fetch("http://127.0.0.1:8000/hello").then((response) => {
-    response.json().then((json) => {
-      message = json.message;
+  let get_board_list = () => {
+    fetch("http://127.0.0.1:8000/api/board/list").then((response) => {
+      response.json().then((json) => {
+        board_list = json
+      });
     });
-  });
+  }
+
+  get_board_list()
 </script>
 
-<h1>{message}</h1>
+<ul>
+  {#each board_list as question}
+    <li>{question.subject}</li>
+  {/each}
+</ul>
