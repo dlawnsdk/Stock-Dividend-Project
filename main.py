@@ -1,5 +1,6 @@
 from fastapi import FastAPI
 from starlette.middleware.cors import CORSMiddleware
+from domain.board import board_router
 
 # 전체적인 환경을 설정하는 파일
 
@@ -17,6 +18,6 @@ app.add_middleware(
     allow_headers=["*"],
 )
 
-
+app.include_router(board_router.router)
 
 
