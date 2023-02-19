@@ -6,3 +6,6 @@
 ## How to revision Modified DataBase
 + ### alembic revision --autogenerate
 + ### alembic upgrade head
+
+## How to run for Server
++ ### uvicorn main:app --reload
