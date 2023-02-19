@@ -1,6 +1,7 @@
 import logging
 from sqlalchemy import create_engine, MetaData
 from sqlalchemy.ext.declarative import declarative_base
+from sqlalchemy.ext.asyncio import create_async_engine, AsyncSession
 from sqlalchemy.orm import sessionmaker
 
 # 데이터 베이스와 관련된 설정하는 파일
@@ -14,20 +15,30 @@ db = {
     'port': 3306,
     'database': 'stockdvidend'
 }
+"""
+비동기 DB 설치
+$ pip install 'sqlalchemy[asyncio]'
+$ pip install aiomysql
+"""
+DB_URL = f"mysql+aiomysql://{db['user']}:{db['password']}@{db['host']}:{db['port']}/{db['database']}?charset=utf8"
 
-DB_URL = f"mysql://{db['user']}:{db['password']}@{db['host']}:{db['port']}/{db['database']}?charset=utf8"
-
+# create_engine -> 동기
+# create_async_engine -> 비동기
 # 컨넥션 풀을 생성
-engine = create_engine(
-    DB_URL, connect_args={'check_same_thread': False}
+async_engine = create_async_engine(
+    DB_URL, case_sensitive=False, convert_unicode=True
 )
 
-# Querry Debugging Level
-logging.getLogger('sqlalchemy.engine').setLevel(logging.INFO) # 실행 쿼리
-# logging.getLogger('sqlalchemy.engine').setLevel(logging.DEBUG) # 조회 결과
-SessionLocal = sessionmaker(autocommit=False, autoflush=False, bind=engine)
+sync_engine = create_engine(
+    DB_URL, case_sensitive=False, convert_unicode=True
+)
 
-Base = declarative_base() # 상속클래스들을 자동으로 매핑
+# Query Debugging Level
+logging.getLogger('sqlalchemy.engine').setLevel(logging.INFO)  # 실행 쿼리
+# logging.getLogger('sqlalchemy.engine').setLevel(logging.DEBUG) # 조회 결과
+SessionLocal = sessionmaker(autocommit=False, autoflush=False, bind=sync_engine)
+
+Base = declarative_base()  # 상속 클래스들을 자동으로 매핑
 naming_convention = {
     "ix": 'ix_%(column_0_label)s',
     "uq": "uq_%(table_name)s_%(column_0_name)s",
@@ -35,14 +46,23 @@ naming_convention = {
     "fk": "fk_%(table_name)s_%(column_0_name)s_%(referred_table_name)s",
     "pk": "pk_%(table_name)s"
 }
-# 이름 지정규칙 세팅
+# 이름 지정 규칙 세팅
 Base.metadata = MetaData(naming_convention=naming_convention)
 
-#  db 정류
-# @contextlib.contextmanager
+
+# 동기 전용
 def get_db():
-    db = SessionLocal()
+    db = SessionLocal()  # db = SessionLocal()  DB 세션 생성
     try:
-        yield db # 제너레이터를 반환
+        yield db  # 제너레이터 반환
     finally:
-        db.close()
+        db.close()  # 사용한 세션을 컨넥션 풀에 반환(종료 아님)
+
+
+# 비동기 전용
+async def get_async_db():
+    db = AsyncSession(bind=async_engine, expire_on_commit=False)
+    try:
+        yield db
+    finally:
+        await db.close()
