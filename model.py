@@ -13,8 +13,8 @@ from database import Base
 """
 
 
-class BoardList(Base):
-    __tablename__ = "boardlist"
+class Board(Base):
+    __tablename__ = "board"
 
     id = Column(Integer, primary_key=True)
     subject = Column(String(255), nullable=False)
@@ -22,11 +22,11 @@ class BoardList(Base):
     create_date = Column(DateTime, nullable=False)
 
 
-class ReplyList(Base):
-    __tablename__ = "replylist"
+class Reply(Base):
+    __tablename__ = "reply"
 
     id = Column(Integer, primary_key=True)
     content = Column(Text, nullable=False)
     create_date = Column(DateTime, nullable=False)
-    board_id = Column(Integer, ForeignKey("boardlist.id"))
-    boardlist = relationship("BoardList", backref="reply")
+    board_id = Column(Integer, ForeignKey("board.id"))
+    board = relationship("Board", backref="replylist")
