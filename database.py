@@ -20,7 +20,7 @@ db = {
 $ pip install 'sqlalchemy[asyncio]'
 $ pip install aiomysql
 """
-DB_URL = f"mysql+aiomysql://{db['user']}:{db['password']}@{db['host']}:{db['port']}/{db['database']}?charset=utf8"
+DB_URL = f"mysql+aiomysql://{db['user']}:{db['password']}@{db['host']}:{db['port']}/{db['database']}?charset=UTF8MB4"
 
 # create_engine -> 동기
 # create_async_engine -> 비동기
