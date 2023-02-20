@@ -10,8 +10,8 @@ router = APIRouter(prefix="/api/board")
 
 
 # response_model? pydantic 적용 해당 함수의 리턴 값은 해당 스키마로 구성된 리스트임을 의미
-# -> 함수로도 사용 가능
-@router.get("/list")
+# -> 함수로도 사용 가능( -> list[board_schema.BoardList])
+@router.get("/list", response_model=board_schema.BoardList)
 async def board_list(db: Session = Depends(get_async_db)):
     board_list = await board_crud.get_board_list(db)
-    return {'board_list': board_list}
+    return {"board_list": board_list}
