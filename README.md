@@ -9,5 +9,5 @@
 ## 3. Way to run for Server
 + ### uvicorn main:app --reload
 
-## 4. Way to run View
+## 4. Way to run for Svelte
 + ### npm run dev
