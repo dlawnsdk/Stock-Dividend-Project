@@ -1,6 +1,7 @@
 {
   "dependencies": {
     "latest": "^0.2.0",
-    "svelte": "^3.55.1"
+    "svelte": "^3.55.1",
+    "svelte-spa-router": "^3.3.0"
   }
 }

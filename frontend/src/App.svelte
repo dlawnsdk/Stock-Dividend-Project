@@ -1,22 +1,9 @@
 <script>
-  let board_list = []
+  import Router from 'svelte-spa-router'
+  import Home from "./routes/Home.svelte"
 
-  let get_board_list = () => {
-    fetch("http://127.0.0.1:8000/api/board/list").then((response) => {
-      response.json().then((json) => {
-
-        board_list = json.board_list
-      });
-    });
+  const routes = {
+    '/': Home,
   }
-
-  get_board_list()
 </script>
-
-<ul>
-  {#each board_list as list}
-    <li>{list.id}</li>
-    <li>{list.subject}</li>
-    <li>{list.create_date}</li>
-  {/each}
-</ul>
+<Router {routes}/>
