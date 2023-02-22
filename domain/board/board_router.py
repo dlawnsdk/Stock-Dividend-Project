@@ -4,7 +4,6 @@ from model import Board
 from sqlalchemy.orm import Session
 from domain.board import board_schema, board_crud
 
-
 # APIRouter 클래스로 생성한 router 객체를 생성하여 FASTApi 앱에 등록해야만 라우팅 기능이 동작한다.
 router = APIRouter(prefix="/api/board")
 
@@ -15,3 +14,9 @@ router = APIRouter(prefix="/api/board")
 async def board_list(db: Session = Depends(get_async_db)):
     board_list = await board_crud.get_board_list(db)
     return {"board_list": board_list}
+
+
+@router.get("/view/{board_id}", response_model=board_schema.Board)
+async def board_view(board_id: int, db: Session = Depends(get_async_db)):
+    board = await board_crud.get_board(db, board_id=board_id)
+    return board

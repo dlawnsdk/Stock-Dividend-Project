@@ -1,14 +1,13 @@
 <script>
   import fastapi from "../lib/api"
+  import { link } from 'svelte-spa-router'
 
   let board_list = []
 
   let get_board_list = () => {
-
     fastapi('get', '/api/board/list', {}, (json) => {
            board_list = json.board_list
        })
-
   }
 
   get_board_list()
@@ -16,8 +15,6 @@
 
 <ul>
   {#each board_list as list}
-    <li>{list.id}</li>
-    <li>{list.subject}</li>
-    <li>{list.create_date}</li>
+    <a use:link href="/view/{list.id}"><li>{list.subject}</li></a>
   {/each}
 </ul>
