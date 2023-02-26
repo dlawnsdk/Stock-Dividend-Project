@@ -13,19 +13,17 @@
         content = json.content
     })
 
-    function update_question(event) {
-        event.preventDefault()
-        let url = "/api/question/update"
+    let update_board = () => {
         let params = {
-            board_id: board_id,
-            subject: subject,
-            content: content,
-        }
-        fastapi('put', url, params,
-            (json) => {
-                push('/board/view/'+ board_id)
+                board_id: board_id,
+                subject: subject,
+                content: content,
             }
-        )
+        fastapi("put", "/api/board/update", params, (json) => {
+            push('/board/view/'+board_id)
+        }, (json_error) => {
+            alert("서버 에러 입니다.")
+        })
     }
 </script>
 <div class="container">
@@ -39,6 +37,6 @@
             <label for="content">내용</label>
             <textarea class="form-control" rows="10" bind:value="{content}"></textarea>
         </div>
-        <button class="btn btn-primary" on:click="{update_question}">수정하기</button>
+        <button class="btn btn-primary" on:click="{update_board}">수정하기</button>
     </form>
 </div>

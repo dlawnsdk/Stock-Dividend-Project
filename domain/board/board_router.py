@@ -1,4 +1,7 @@
-from fastapi import APIRouter, Depends
+from fastapi import APIRouter, Depends, HTTPException
+from starlette import status
+from starlette.status import HTTP_400_BAD_REQUEST
+
 from database import SessionLocal, get_db, get_async_db
 from model import Board
 from sqlalchemy.orm import Session
@@ -20,3 +23,12 @@ async def board_list(db: Session = Depends(get_async_db)):
 async def board_view(board_id: int, db: Session = Depends(get_async_db)):
     board = await board_crud.get_board(db, board_id=board_id)
     return board
+
+
+@router.put("/update", status_code=status.HTTP_204_NO_CONTENT)
+async def board_update(_board_update: board_schema.BoardUpdate, db: Session = Depends(get_async_db)):
+    db_board = await board_crud.get_board(db, board_id=_board_update.board_id)
+    if not db_board:
+        raise HTTPException(status_code=HTTP_400_BAD_REQUEST, detail="해당 게시글을 찾을 수 없습니다.")
+
+    await board_crud.update_board(db=db, db_board=db_board, board_update=_board_update)

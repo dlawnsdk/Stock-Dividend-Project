@@ -20,6 +20,7 @@ class Board(Base):
     subject = Column(String(255), nullable=False)
     content = Column(Text, nullable=False)
     create_date = Column(DateTime, nullable=False)
+    update_date = Column(DateTime, nullable=True)
 
 
 class Reply(Base):
