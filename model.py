@@ -16,7 +16,7 @@ from database import Base
 class Board(Base):
     __tablename__ = "board"
 
-    id = Column(Integer, primary_key=True)
+    board_id = Column(Integer, primary_key=True)
     subject = Column(String(255), nullable=False)
     content = Column(Text, nullable=False)
     create_date = Column(DateTime, nullable=False)
@@ -26,8 +26,8 @@ class Board(Base):
 class Reply(Base):
     __tablename__ = "reply"
 
-    id = Column(Integer, primary_key=True)
+    reply_id = Column(Integer, primary_key=True)
     content = Column(Text, nullable=False)
     create_date = Column(DateTime, nullable=False)
-    board_id = Column(Integer, ForeignKey("board.id"))
+    board_id = Column(Integer, ForeignKey("board.board_id"))
     board = relationship("Board", backref="replylist")

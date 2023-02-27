@@ -1,7 +1,7 @@
 import logging
 from sqlalchemy import create_engine, MetaData
-from sqlalchemy.ext.declarative import declarative_base
 from sqlalchemy.ext.asyncio import create_async_engine, AsyncSession
+from sqlalchemy.ext.declarative import declarative_base
 from sqlalchemy.orm import sessionmaker
 
 # 데이터 베이스와 관련된 설정하는 파일
@@ -26,11 +26,11 @@ DB_URL = f"mysql+aiomysql://{db['user']}:{db['password']}@{db['host']}:{db['port
 # create_async_engine -> 비동기
 # 컨넥션 풀을 생성
 async_engine = create_async_engine(
-    DB_URL, case_sensitive=False, convert_unicode=True
+    DB_URL
 )
 
 sync_engine = create_engine(
-    DB_URL, case_sensitive=False, convert_unicode=True
+    DB_URL
 )
 
 # Query Debugging Level

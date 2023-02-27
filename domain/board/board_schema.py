@@ -6,7 +6,7 @@ from pydantic import BaseModel, validator
 
 
 class Board(BaseModel):
-    id: int
+    board_id: int
     subject: str
     content: str
     create_date: datetime.datetime

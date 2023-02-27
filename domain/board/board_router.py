@@ -25,10 +25,17 @@ async def board_view(board_id: int, db: Session = Depends(get_async_db)):
     return board
 
 
+@router.post("/create", status_code=status.HTTP_204_NO_CONTENT)
+async def board_create(_board_create: board_schema.BoardCreate, db: Session = Depends(get_async_db)):
+    await board_crud.create_board(db=db, board_create=_board_create)
+
+
 @router.put("/update", status_code=status.HTTP_204_NO_CONTENT)
 async def board_update(_board_update: board_schema.BoardUpdate, db: Session = Depends(get_async_db)):
-    db_board = await board_crud.get_board(db, board_id=_board_update.board_id)
-    if not db_board:
+    print("1")
+    now_board = await board_crud.get_board(db, board_id=_board_update.board_id)
+    print("2", now_board)
+    if not now_board:
         raise HTTPException(status_code=HTTP_400_BAD_REQUEST, detail="해당 게시글을 찾을 수 없습니다.")
 
-    await board_crud.update_board(db=db, db_board=db_board, board_update=_board_update)
+    await board_crud.update_board(db=db, now_board=now_board, board_update=_board_update)

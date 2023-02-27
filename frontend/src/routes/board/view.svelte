@@ -19,5 +19,5 @@
 <div>
     {board.content}
 </div>
-<div class="my-3"><a use:link href="/board/edit/{board.id}" class="btn btn-sm btn-outline-secondary">수정</a></div>
+<div class="my-3"><a use:link href="/board/edit/{board.board_id}" class="btn btn-sm btn-outline-secondary">수정</a></div>
 <button>삭제</button>

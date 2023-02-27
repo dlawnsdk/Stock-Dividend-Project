@@ -15,6 +15,7 @@
 
 <ul>
   {#each board_list as list}
-    <a use:link href="/board/view/{list.id}"><li>{list.subject}</li></a>
+    <a use:link href="/board/view/{list.board_id}"><li>{list.subject}</li></a>
   {/each}
 </ul>
+<div class="my-3"><a use:link href="/board/edit/new" class="btn btn-sm btn-outline-secondary">등록</a></div>
