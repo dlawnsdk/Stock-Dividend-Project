@@ -5,8 +5,8 @@
   let stock_list = ''
 
   fastapi('get', '/api/stock/list', {}, (json) => {
-        console.log(json[1])
-         stock_list = json[1]
+        console.log(json)
+         stock_list = json
      })
 
 </script>
