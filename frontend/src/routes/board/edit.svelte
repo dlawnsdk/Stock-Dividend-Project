@@ -15,6 +15,7 @@
         })
     }
 
+    // 글 생성
     let create_board = (event) => {
         event.preventDefault()
         let params = {
@@ -28,6 +29,7 @@
         })
     }
 
+    // 글 수정
     let update_board = (event) => {
          event.preventDefault()
         let params = {

@@ -32,5 +32,9 @@ class BoardUpdate(BoardCreate):
     board_id: int
 
 
+class BoardDelete(BaseModel):
+    board_id: int
+
+
 class BoardList(BaseModel):
     board_list: list[Board] = []

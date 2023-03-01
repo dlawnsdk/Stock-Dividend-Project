@@ -14,9 +14,9 @@ async def get_board_list(db: Session):
 
 async def get_board(db: Session, board_id: int):
     board = await db.execute(
-        select(Board.board_id, Board.subject, Board.content, Board.create_date).filter(Board.board_id == board_id)
+        select(Board).filter(Board.board_id == board_id)
     )
-    return board.all()[0]
+    return board.scalar_one()
 
 
 async def create_board(db: Session, board_create: Board):
@@ -25,9 +25,15 @@ async def create_board(db: Session, board_create: Board):
     await db.commit()
 
 
-async def update_board(db: Session, now_board: Board, board_update: BoardUpdate):
-    now_board.subject = board_update.subject
-    now_board.content = board_update.content
+async def update_board(db: Session, now_board: Board, new_board: BoardUpdate):
+    now_board.subject = new_board.subject
+    now_board.content = new_board.content
     now_board.update_date = datetime.now()
     db.add(now_board)
+    await db.commit()
+
+
+async def delete_board(db: Session, now_board: Board):
+    print("test 2", now_board)
+    await db.delete(now_board)
     await db.commit()

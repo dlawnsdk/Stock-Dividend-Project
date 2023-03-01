@@ -2,8 +2,7 @@ from fastapi import APIRouter, Depends, HTTPException
 from starlette import status
 from starlette.status import HTTP_400_BAD_REQUEST
 
-from database import SessionLocal, get_db, get_async_db
-from model import Board
+from database import get_async_db
 from sqlalchemy.orm import Session
 from domain.board import board_schema, board_crud
 
@@ -26,16 +25,23 @@ async def board_view(board_id: int, db: Session = Depends(get_async_db)):
 
 
 @router.post("/create", status_code=status.HTTP_204_NO_CONTENT)
-async def board_create(_board_create: board_schema.BoardCreate, db: Session = Depends(get_async_db)):
-    await board_crud.create_board(db=db, board_create=_board_create)
+async def board_create(params: board_schema.BoardCreate, db: Session = Depends(get_async_db)):
+    await board_crud.create_board(db, board_create=params)
 
 
 @router.put("/update", status_code=status.HTTP_204_NO_CONTENT)
-async def board_update(_board_update: board_schema.BoardUpdate, db: Session = Depends(get_async_db)):
-    print("1")
-    now_board = await board_crud.get_board(db, board_id=_board_update.board_id)
-    print("2", now_board)
+async def board_update(params: board_schema.BoardUpdate, db: Session = Depends(get_async_db)):
+    now_board = await board_crud.get_board(db, board_id=params.board_id)
     if not now_board:
         raise HTTPException(status_code=HTTP_400_BAD_REQUEST, detail="해당 게시글을 찾을 수 없습니다.")
 
-    await board_crud.update_board(db=db, now_board=now_board, board_update=_board_update)
+    await board_crud.update_board(db, now_board=now_board, new_board=params)
+
+
+@router.delete("/delete", status_code=status.HTTP_204_NO_CONTENT)
+async def board_delete(params: board_schema.BoardDelete, db: Session = Depends(get_async_db)):
+    now_board = await board_crud.get_board(db, board_id=params.board_id)
+    if not now_board:
+        raise HTTPException(status_code=HTTP_400_BAD_REQUEST, detail="해당 게시글을 찾을 수 없습니다.")
+
+    await board_crud.delete_board(db, now_board=now_board)
