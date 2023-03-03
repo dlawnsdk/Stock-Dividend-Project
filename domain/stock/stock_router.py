@@ -11,7 +11,7 @@ router = APIRouter(prefix="/api/stock")
 @router.get('/list')
 def stock_list():
     url = 'http://apis.data.go.kr/1160100/service/GetStocDiviInfoService/getDiviInfo'
-    params = {'serviceKey': 'X3EjOtLbzPsZO0sDXdwImY5+EfRe0rrb7O8XtPHRhvjzFNghyIHx+41YK8EZETVdI5qMID3aww6/KDrwAFg9fA==', 'resultType': 'JSON'}
+    params = {'serviceKey': 'X3EjOtLbzPsZO0sDXdwImY5+EfRe0rrb7O8XtPHRhvjzFNghyIHx+41YK8EZETVdI5qMID3aww6/KDrwAFg9fA==', 'pageNo' : '1', 'numOfRows' : '1', 'resultType' : 'json', 'stckIssuCmpyNm' : '하이닉스' }
 
     stock_list: Response = requests.get(url, params=params) # requests.models.response
 
@@ -19,6 +19,7 @@ def stock_list():
 
     result = {}
     for i in range(result_length):
-        result[i] = stock_list.json().get('response').get('body').get('items').get('item')[i].get('isinCdNm')
+        result[i] = stock_list.json().get('response').get('body').get('items').get('item')[i]
+        print(result[i])
 
     return result

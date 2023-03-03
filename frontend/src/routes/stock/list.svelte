@@ -5,13 +5,14 @@
   let stock_list = {}
 
   fastapi('get', '/api/stock/list', {}, (json) => {
-         stock_list = json
+         stock_list = json[0]
+        console.log(stock_list)
      })
 
 </script>
 
 <ul>
      {#each Object.entries(stock_list) as [key, value], idx}
-         <li>>{idx+1}: {value}</li> <!-- 키와 값 출력 -->
+         <li>>{key}: {value}</li> <!-- 키와 값 출력 -->
     {/each}
 </ul>
