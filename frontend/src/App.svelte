@@ -1,3 +1,5 @@
+
+<link rel="stylesheet" href="public/style/common.css">
 <script>
   import Router from 'svelte-spa-router'
   import index from "./routes/index.svelte"

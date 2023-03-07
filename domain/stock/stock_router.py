@@ -21,5 +21,6 @@ def stock_list(keyword: str = ''):
 
     for i in range(result_length):
         result[i] = stock_list.json().get('response').get('body').get('items').get('item')[i]
+        print(result)
 
     return result
