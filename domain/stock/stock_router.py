@@ -13,7 +13,6 @@ def stock_list(keyword: str = ''):
 
     stockPrice = stock_info()
     result2 = stockPrice.stock_price(keyword)
-    print(result2)
 
     final.append(result)
     final.append(result2)
