@@ -3,6 +3,9 @@ from starlette.middleware.cors import CORSMiddleware
 from domain.board import board_router
 from domain.stock import stock_router
 
+from starlette.responses import FileResponse
+from starlette.staticfiles import StaticFiles
+
 # 전체적인 환경을 설정하는 파일
 
 app = FastAPI()
@@ -22,4 +25,14 @@ app.add_middleware(
 app.include_router(board_router.router)
 app.include_router(stock_router.router)
 
+"""
+frontend build 후 dist 등록
+"""
+app.mount("/assets", StaticFiles(directory="frontend/dist/assets"))
+#app.mount("/assets", StaticFiles(directory="frontend/dist"))
+
+
+@app.get("/")
+def index():
+    return FileResponse("frontend/dist/index.html")
 
