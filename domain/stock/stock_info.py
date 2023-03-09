@@ -30,7 +30,6 @@ class stock_info:
         stock_list: Response = requests.get(url, params=params)  # requests.models.response
 
         result_length = len(stock_list.json().get('response').get('body').get('items').get('item'))
-        #print(result_length)
         result = {}
 
         for i in range(result_length):
