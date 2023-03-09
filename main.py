@@ -29,7 +29,6 @@ app.include_router(stock_router.router)
 frontend build 후 dist 등록
 """
 app.mount("/assets", StaticFiles(directory="frontend/dist/assets"))
-#app.mount("/assets", StaticFiles(directory="frontend/dist"))
 
 
 @app.get("/")
