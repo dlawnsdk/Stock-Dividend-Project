@@ -1,13 +1,7 @@
   table {
-    width: 80%;
+    width: 50%;
     border: 1px solid #444444;
   }
   th, td {
     border: 1px solid #444444;
-  }
-  th {
-      width: 30%;
-  }
-  td {
-      width: 70%;
   }

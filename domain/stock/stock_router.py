@@ -5,16 +5,17 @@ from domain.stock.stock_info import stock_info
 router = APIRouter(prefix="/api/stock")
 
 
+@router.get('/view')
+def stock_dividend(company_name: str = ''):
+    sotckDividend = stock_info()
+    result = sotckDividend.stock_dividend(company_name)
+
+    return result
+
+
 @router.get('/list')
-def stock_list(keyword: str = ''):
-    final = []
-    sotckInfo = stock_info()
-    result = sotckInfo.stock_dividend(keyword)
+def stock_information(keyword: str = ''):
+    stockInfo = stock_info()
+    result = stockInfo.stock_price(keyword)
 
-    stockPrice = stock_info()
-    result2 = stockPrice.stock_price(keyword)
-
-    final.append(result)
-    final.append(result2)
-
-    return final
+    return result
