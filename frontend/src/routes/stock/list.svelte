@@ -1,5 +1,6 @@
 <script>
   import fastapi from "../../lib/api.js"
+  import { link } from 'svelte-spa-router'
 
   let stock_list = []
   let stock_dividend = {}
@@ -20,21 +21,6 @@
           if(json[0] != undefined){
               // content.style.display = 'block'
               stock_list = json
-          }
-      })
-  }
-
-  let stock_view = (company_name) => {
-      let params = {
-        company_name: company_name
-      }
-      fastapi('get', '/api/stock/view', params, (json) => {
-          console.log(json[0])
-          if(json[0] != undefined){
-                stock_dividend = json[0]
-              console.log(stock_dividend)
-          }else{
-
           }
       })
   }
@@ -95,15 +81,10 @@
             </tr>
         </thead>
         {#each stock_list as list}
-            <tr on:click={() => stock_view(list.itmsNm)}>
-                <td>{list.itmsNm}</td>
+            <tr>
+                <td><a use:link href="/stock/view/{list.itmsNm}">{list.itmsNm}</a></td>
                 <td>{list.clpr}</td>
                 <td>{list.basDt}</td>
-            </tr>
-            <tr>
-                {#each Object.entries(stock_dividend) as [key, value], idx}-->
-                    <div>{key}: {value}</div> <!-- 키와 값 출력 -->
-                {/each}
             </tr>
         {/each}
     </table>

@@ -3,11 +3,11 @@ import requests
 
 
 class stock_info:
-    def stock_dividend(self, company_name: str):
+    def stock_dividend(self, keyword: str):
         url = 'http://apis.data.go.kr/1160100/service/GetStocDiviInfoService/getDiviInfo'
         params = {
             'serviceKey': 'X3EjOtLbzPsZO0sDXdwImY5+EfRe0rrb7O8XtPHRhvjzFNghyIHx+41YK8EZETVdI5qMID3aww6/KDrwAFg9fA==',
-            'pageNo': '1', 'resultType': 'json', 'stckIssuCmpyNm': company_name
+            'pageNo': '1', 'resultType': 'json', 'stckIssuCmpyNm': keyword
         }
 
         stock_list: Response = requests.get(url, params=params)  # requests.models.response
