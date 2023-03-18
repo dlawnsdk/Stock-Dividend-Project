@@ -4,4 +4,3 @@ __pycache__
 migrations
 alembic.ini
 .env
-board
