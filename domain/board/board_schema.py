@@ -10,7 +10,7 @@ class Board(BaseModel):
     subject: str
     content: str
     create_date: datetime.datetime
-    update_date: datetime.datetime
+    update_date: datetime.datetime | None = None
 
     # DB Model의 항목들이 자동으로 Schema로 매핑된다.
     class Config:
