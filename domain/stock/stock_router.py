@@ -7,15 +7,15 @@ router = APIRouter(prefix="/api/stock")
 
 @router.get('/view')
 def stock_dividend(keyword: str = ''):
-    sotckDividend = stock_info()
-    result = sotckDividend.stock_dividend(keyword)
+    sotckDividend = stock_info(keyword)
+    result = sotckDividend.stock_dividend()
 
     return result
 
 
 @router.get('/list')
 def stock_information(keyword: str = ''):
-    stockInfo = stock_info()
-    result = stockInfo.stock_price(keyword)
+    stockInfo = stock_info(keyword)
+    result = stockInfo.stock_price()
 
     return result

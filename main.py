@@ -2,6 +2,7 @@ from fastapi import FastAPI
 from starlette.middleware.cors import CORSMiddleware
 from domain.board import board_router
 from domain.stock import stock_router
+from domain.member import login_router
 
 from starlette.responses import FileResponse
 from starlette.staticfiles import StaticFiles
@@ -24,6 +25,7 @@ app.add_middleware(
 
 app.include_router(board_router.router)
 app.include_router(stock_router.router)
+app.include_router(login_router.router)
 
 """
 frontend build 후 dist 등록
