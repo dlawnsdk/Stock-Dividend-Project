@@ -27,6 +27,6 @@ class Oauth:
             # 'code': authorize_code
         }
 
-        requests.post(f'https://kauth.kakao.com/oauth/authorize?response_type=code&client_id=eec0b007a1d0f71c05c99e3130b08d0b&redirect_uri=http://localhost:5173/api/member/tryLogin')
+        requests.post(f'https://kauth.kakao.com/oauth/authorize?response_type=code&client_id=eec0b007a1d0f71c05c99e3130b08d0b&redirect_uri=http://localhost:8000/auth/kakao/callback')
         # tokens = response.json()
         # print(tokens)

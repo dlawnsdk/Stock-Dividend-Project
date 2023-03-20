@@ -3,7 +3,7 @@ from fastapi import APIRouter
 from domain.member import login_crud
 
 
-router = APIRouter(prefix="/api/member")
+router = APIRouter(prefix="/auth")
 
 
 @router.get('/agreeList')
@@ -13,6 +13,6 @@ def agreeList():
     print(result)
 
 
-@router.get('/tryLogin')
+@router.get('/kakao/callback')
 def trylogin():
-    print("동의!!")
+    print("동의!!?")
