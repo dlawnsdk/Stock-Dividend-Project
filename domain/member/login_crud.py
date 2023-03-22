@@ -1,6 +1,8 @@
 import requests
 import json
 
+from starlette.responses import RedirectResponse
+
 # HTTP / 1.1
 # Host: kauth.kakao.com
 
@@ -27,6 +29,6 @@ class Oauth:
             # 'code': authorize_code
         }
 
-        requests.post(f'https://kauth.kakao.com/oauth/authorize?response_type=code&client_id=eec0b007a1d0f71c05c99e3130b08d0b&redirect_uri=http://localhost:8000/auth/kakao/callback')
+        RedirectResponse(f'https://kauth.kakao.com/oauth/authorize?response_type=code&client_id=eec0b007a1d0f71c05c99e3130b08d0b&redirect_uri=http://localhost:8000/auth/kakao/callback')
         # tokens = response.json()
         # print(tokens)

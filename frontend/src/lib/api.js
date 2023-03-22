@@ -2,7 +2,6 @@ const fastapi = (operation, url, params, success_callback, failure_callback) => 
     let method = operation
     let content_type = 'application/json'
     let body = JSON.stringify(params)
-
     let _url = import.meta.env.VITE_SERVER_URL+url
     if(method === 'get') {
         _url += "?" + new URLSearchParams(params)
@@ -13,6 +12,15 @@ const fastapi = (operation, url, params, success_callback, failure_callback) => 
         headers: {
             "Content-Type": content_type
         },
+    }
+
+    if(params == 'login'){
+        let options = {
+            method: method,
+            headers: {
+                "Content-Type": 'application/x-www-form-urlencoded;charset=utf-8'
+            },
+        }
     }
 
     if (method !== 'get') {
