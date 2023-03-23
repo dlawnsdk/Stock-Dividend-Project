@@ -12,6 +12,7 @@
         fastapi("get", "/api/board/view/" + board_id, {}, (json) => {
             subject = json.subject
             content = json.content
+
         })
     }
 

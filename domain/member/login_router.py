@@ -1,20 +1,23 @@
 import requests
 from fastapi import APIRouter
-from fastapi.responses import RedirectResponse
-
-from domain.member import login_crud
-
 
 router = APIRouter(prefix="/auth")
 
 
-@router.get('/kakao/login')
-def agreeList():
-    return RedirectResponse('https://kauth.kakao.com/oauth/authorize?response_type=code&client_id=eec0b007a1d0f71c05c99e3130b08d0b&redirect_uri=http://localhost:8000/auth/kakao/callback')
-
-
 @router.get('/kakao/callback')
-def trylogin():
-    test=requests.get('https://kauth.kakao.com/oauth/authorize?response_type=code&client_id=eec0b007a1d0f71c05c99e3130b08d0b&redirect_uri=http://localhost:8000/auth/kakao/callback')
-    print("동의!!?", test.content.code)
-    return test.content
+def trylogin(code: str):
+    url = "https://kauth.kakao.com/oauth/token"
+
+    data = {
+        "grant_type": "authorization_code",
+        "client_id": "21a44baa64e55564eb933d9bf7046417",
+        "redirect_uri": "http://localhost:8000/auth/kakao/callback",
+        "code": code
+    }
+    response = requests.post(url, data=data)
+
+    tokens = response.json()
+
+    test = requests.get('https://kapi.kakao.com/v2/user/me?data=e82932696d90d6236dfcc88b8976bf76')
+    print('test', test.json())
+
