@@ -1,6 +1,6 @@
 import requests
 from fastapi import APIRouter
-
+from requests.models import Response
 router = APIRouter(prefix="/auth")
 
 
@@ -12,12 +12,20 @@ def trylogin(code: str):
         "grant_type": "authorization_code",
         "client_id": "21a44baa64e55564eb933d9bf7046417",
         "redirect_uri": "http://localhost:8000/auth/kakao/callback",
-        "code": code
+        "code": code,
+        "Content-Type": 'application/x-www-form-urlencoded'
     }
     response = requests.post(url, data=data)
 
-    tokens = response.json()
+    auth = response.json() # 인가코드
+    print("auth", response)
+    ACCESS_TOKEN = auth.get('access_token')
+    APP_ADMIN_KEY = 'e82932696d90d6236dfcc88b8976bf76'
+    data = {
+        "Authorization": f'Bearer {ACCESS_TOKEN}',
+    }
+    resp = Response()
+    token = requests.get('https://kapi.kakao.com/v2/user/me', data=data)
 
-    test = requests.get('https://kapi.kakao.com/v2/user/me?data=e82932696d90d6236dfcc88b8976bf76')
-    print('test', test.json())
+    print('test', token)
 
