@@ -1,10 +1,10 @@
+import logging
+
 import requests
-from fastapi import APIRouter
-from requests.models import Response
+from fastapi import APIRouter, status
 router = APIRouter(prefix="/auth")
 
-
-@router.get('/kakao/callback')
+@router.get('/kakao/callback', status_code=status.HTTP_200_OK)
 def trylogin(code: str):
     url = "https://kauth.kakao.com/oauth/token"
 
@@ -17,15 +17,9 @@ def trylogin(code: str):
     }
     response = requests.post(url, data=data)
 
-    auth = response.json() # 인가코드
-    print("auth", response)
+    auth = response.json()  # 인가코드
     ACCESS_TOKEN = auth.get('access_token')
-    APP_ADMIN_KEY = 'e82932696d90d6236dfcc88b8976bf76'
-    data = {
-        "Authorization": f'Bearer {ACCESS_TOKEN}',
-    }
-    resp = Response()
-    token = requests.get('https://kapi.kakao.com/v2/user/me', data=data)
-
-    print('test', token)
-
+    # 인가코드로 사용자 정보 조회
+    token = requests.get('https://kapi.kakao.com/v2/user/me', headers={"Authorization": f'Bearer {ACCESS_TOKEN}'})
+    login_success_fail = token.status_code == 200
+    print('로그인 성공여부', login_success_fail)

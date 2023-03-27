@@ -34,6 +34,5 @@ async def update_board(db: Session, now_board: Board, new_board: BoardUpdate):
 
 
 async def delete_board(db: Session, now_board: Board):
-    print("test 2", now_board)
     await db.delete(now_board)
     await db.commit()
