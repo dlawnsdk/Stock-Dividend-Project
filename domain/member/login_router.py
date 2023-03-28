@@ -1,5 +1,4 @@
-import logging
-
+from fastapi.responses import HTMLResponse
 import requests
 from fastapi import APIRouter, status
 router = APIRouter(prefix="/auth")
@@ -23,3 +22,11 @@ def trylogin(code: str):
     token = requests.get('https://kapi.kakao.com/v2/user/me', headers={"Authorization": f'Bearer {ACCESS_TOKEN}'})
     login_success_fail = token.status_code == 200
     print('로그인 성공여부', login_success_fail)
+
+    html_content = """
+        <script>
+            alert('test')
+            window.location.href= 'http://localhost:5173/'
+        </script>
+        """
+    return HTMLResponse(content=html_content, status_code=200)
