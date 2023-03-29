@@ -22,11 +22,21 @@ def trylogin(code: str):
     token = requests.get('https://kapi.kakao.com/v2/user/me', headers={"Authorization": f'Bearer {ACCESS_TOKEN}'})
     login_success_fail = token.status_code == 200
     print('로그인 성공여부', login_success_fail)
-
-    html_content = """
+    print('유저 정보', token.json().get('kakao_account'))
+    email = token.json().get('kakao_account').get('email')
+    html_content = f"""
+        <body>
+            <form action='/' method='post' id='frm'>
+                <input type='hidden' name='user_email' value='{email}'>
+            </form>
+        </body>
         <script>
-            alert('test')
-            window.location.href= 'http://localhost:5173/'
+            document.getElementById('frm').submit();
         </script>
         """
+    html_content = f"""
+           <script>
+               window.location.href = 'http://localhost:5173/#/member/mypage?user_email={email}'
+           </script>
+           """
     return HTMLResponse(content=html_content, status_code=200)
