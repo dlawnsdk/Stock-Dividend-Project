@@ -1,12 +1,15 @@
 <script>
   import fastapi from "../../lib/api.js"
-  import { link } from 'svelte-spa-router'
+  import { querystring } from 'svelte-spa-router'
+  let searchParams = new URLSearchParams($querystring);
+  let code = searchParams.get('code')
 
-  window.Kakao.init('21a44baa64e55564eb933d9bf7046417'); // 사용하려는 앱의 JavaScript 키 입력
-  function loginWithKakao() {
-    window.Kakao.Auth.authorize({
-      redirectUri: 'http://localhost:8000/auth/kakao/callback',
-    });
+
+window.Kakao.init('21a44baa64e55564eb933d9bf7046417');
+ function loginWithKakao() {
+      window.Kakao.Auth.authorize({
+        redirectUri: 'http://localhost:8000/auth/kakao/callback',
+      });
   }
 </script>
 

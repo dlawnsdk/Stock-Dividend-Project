@@ -9,12 +9,10 @@
   import stock_list from "./routes/stock/list.svelte"
   import stock_view from "./routes/stock/view.svelte"
   import login from "./routes/member/login.svelte"
-  import mypage from "./routes/member/mypage.svelte";
 
   const routes = {
     '/': index,
     '/member/login': login,
-    '/member/mypage': mypage,
     '/board/list/': list,
     '/board/view/:board_id': view,
     '/board/edit/:board_id': edit,

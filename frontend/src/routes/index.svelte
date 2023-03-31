@@ -1,6 +1,8 @@
 <script>
     import { link, querystring } from 'svelte-spa-router'
     let searchParams = new URLSearchParams($querystring);
+
+   let ACCESS_TOKEN = searchParams.get('ACCESS_TOKEN')
 </script>
 <div>
     <h1>메인페이지</h1>
