@@ -1,11 +1,5 @@
 <script>
-  import fastapi from "../../lib/api.js"
-  import { querystring } from 'svelte-spa-router'
-  let searchParams = new URLSearchParams($querystring);
-  let code = searchParams.get('code')
-
-
-window.Kakao.init('21a44baa64e55564eb933d9bf7046417');
+window.Kakao.init(import.meta.env.VITE_KAKAO_CLIENT_KEY);
  function loginWithKakao() {
       window.Kakao.Auth.authorize({
         redirectUri: 'http://localhost:8000/auth/kakao/callback',

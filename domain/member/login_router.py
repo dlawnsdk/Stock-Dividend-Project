@@ -26,10 +26,14 @@ def trylogin(code: str):
     email = token.json().get('kakao_account').get('email')
     html_content = f"""
            <script>
-               alert('로그인 성공')
+               alert('로그인 성공')           
+               let sessionData = "userInfo"
+               sessionStorage.setItem('sessionData', '{email}')    
+               console.log(sessionStorage.getItem("sessionData"))
            </script>
            <body>
             {email}님 환영합니다.
+            <button><a href="/">메인화면</a></button>
            </body>
            """
     return HTMLResponse(content=html_content, status_code=200)

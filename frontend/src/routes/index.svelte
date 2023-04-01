@@ -1,13 +1,12 @@
 <script>
-    import { link, querystring } from 'svelte-spa-router'
-    let searchParams = new URLSearchParams($querystring);
+    import { link } from 'svelte-spa-router'
 
-   let ACCESS_TOKEN = searchParams.get('ACCESS_TOKEN')
+    console.log(sessionStorage.getItem("sessionData"))
+
 </script>
 <div>
     <h1>메인페이지</h1>
     <a use:link href="/board/list/">게시판</a>
     <a use:link href="/stock/list">배당주식</a>
     <a use:link href="/member/login">로그인</a>
-    <p>The querystring is: {searchParams}</p>
 </div>
