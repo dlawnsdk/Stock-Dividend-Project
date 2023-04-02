@@ -3,8 +3,10 @@ import requests
 
 
 class stock_info:
-    def __init__(self, keyword: str):
+    def __init__(self, keyword: str, s_date: str, e_date: str):
         self.keyword = keyword
+        self.s_date = s_date
+        self.e_date = e_date
 
     def stock_dividend(self):
         url = 'http://apis.data.go.kr/1160100/service/GetStocDiviInfoService/getDiviInfo'
@@ -14,6 +16,8 @@ class stock_info:
         }
 
         stock_list: Response = requests.get(url, params=params)  # requests.models.response
+
+        print(stock_list)
 
         result_length = len(stock_list.json().get('response').get('body').get('items').get('item'))
 
@@ -27,10 +31,12 @@ class stock_info:
         url = "http://apis.data.go.kr/1160100/service/GetStockSecuritiesInfoService/getStockPriceInfo"
         params = {
             'serviceKey': 'X3EjOtLbzPsZO0sDXdwImY5+EfRe0rrb7O8XtPHRhvjzFNghyIHx+41YK8EZETVdI5qMID3aww6/KDrwAFg9fA==',
-            'pageNo': '1', 'resultType': 'json', 'likeItmsNm': self.keyword
+            'resultType': 'json', 'itmsNm': self.keyword, 'beginBasDt' : self.s_date, 'endBasDt' : self.e_date
         }
 
         stock_list: Response = requests.get(url, params=params)  # requests.models.response
+
+        print(stock_list.json().get('response').get('body').get('items').get('item'))
 
         result_length = len(stock_list.json().get('response').get('body').get('items').get('item'))
         result = []

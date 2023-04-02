@@ -6,11 +6,16 @@
   let stock_dividend = {}
   let content
   let keyword
-
+  let s_date
+  let e_date
   let search = () => {
       keyword = document.getElementById("keyword").value
+      s_date = document.getElementById("s_date").value
+      e_date = document.getElementById("e_date").value
       let params = {
-          keyword: keyword
+          keyword: keyword,
+          s_date : s_date,
+          e_date : e_date
       }
       if(keyword === ''){
           alert("키워드를 입력해주세요")
@@ -32,35 +37,9 @@
     <!-- {#each Object.entries(stock_list) as [key, value], idx}-->
     <!--     <div>{key}: {value}</div> &lt;!&ndash; 키와 값 출력 &ndash;&gt;-->
     <!--{/each}-->
+<input type='date' name='s_date' id="s_date"/>
+<input type='date' name='e_date' id="e_date"/>
 <div bind:this={content}>
-    <!--{#if stock_dividend.stckIssuCmpyNm != undefined}-->
-    <!--    <table>-->
-    <!--        <tr>-->
-    <!--            <th>종목 이름</th>-->
-    <!--            <td>{stock_dividend.stckIssuCmpyNm}</td>-->
-    <!--        </tr>-->
-    <!--        <tr>-->
-    <!--            <th>보통주/우선주</th>-->
-    <!--            <td>{stock_dividend.scrsItmsKcdNm}</td>-->
-    <!--        </tr>-->
-    <!--        <tr>-->
-    <!--            <th>배당금</th>-->
-    <!--            <td>{stock_dividend.stckGenrDvdnAmt}</td>-->
-    <!--        </tr>-->
-    <!--        <tr>-->
-    <!--            <th>발행기관</th>-->
-    <!--            <td>{stock_dividend.trsnmDptyDcdNm}</td>-->
-    <!--        </tr>-->
-    <!--        <tr>-->
-    <!--            <th>법인 등록번호</th>-->
-    <!--            <td>{stock_dividend.crno}</td>-->
-    <!--        </tr>-->
-    <!--        <tr>-->
-    <!--            <th>주식배당사유코드</th>-->
-    <!--            <td>{stock_dividend.stckDvdnRcdNm}</td>-->
-    <!--        </tr>-->
-    <!--    </table>-->
-    <!--{/if}-->
     <table>
       <colgroup>
         <col width="70%"/>
