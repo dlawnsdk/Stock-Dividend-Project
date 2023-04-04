@@ -49,9 +49,15 @@ class stock_info:
             dataframe.append(stock_list.json().get('response').get('body').get('items').get('item')[i].get('clpr'))
             labels.append(stock_list.json().get('response').get('body').get('items').get('item')[i].get('basDt'))
 
-        print(dataframe)
-        dataframe = np.array(dataframe)
-        plt.bar(dataframe, height=100, width=1, tick_label=labels, color="darkorange")
+        for i in range(len(dataframe)):
+            dataframe[i] = int(dataframe[i])
+
+        labels.reverse()
+
+        print(labels)
+
+        #plt.bar(dataframe, height=100, width=1, tick_label=labels, color="darkorange")
+        plt.plot(labels, dataframe)
         plt.show()
 
         return result
