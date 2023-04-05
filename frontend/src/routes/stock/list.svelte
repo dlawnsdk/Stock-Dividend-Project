@@ -60,11 +60,13 @@
             </tr>
         </thead>
         {#each stock_list as list}
+            {keyword}
             <tr>
                 <td><a use:link href="/stock/view/{list.itmsNm}">{list.itmsNm}</a></td>
                 <td>{list.clpr}</td>
                 <td>{list.basDt}</td>
             </tr>
         {/each}
+        <iframe src="test.html" width="800" height="600"></iframe>
     </table>
 </div>

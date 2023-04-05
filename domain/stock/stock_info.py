@@ -2,7 +2,7 @@ import numpy as np
 from matplotlib import pyplot as plt
 from requests.models import Response
 import requests
-
+import mpld3
 
 class stock_info:
     def __init__(self, keyword: str, s_date: str, e_date: str):
@@ -54,10 +54,12 @@ class stock_info:
 
         labels.reverse()
 
-        print(labels)
+        # plt.plot(labels, dataframe)
+        # plt.show()
 
-        #plt.bar(dataframe, height=100, width=1, tick_label=labels, color="darkorange")
-        plt.plot(labels, dataframe)
-        plt.show()
+        fig, ax = plt.subplots()
+        ax.plot(labels, dataframe)
+
+        mpld3.save_html(fig, 'test.svelte')
 
         return result
