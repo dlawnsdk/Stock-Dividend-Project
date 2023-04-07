@@ -8,6 +8,8 @@
   let keyword
   let s_date
   let e_date
+  let me;
+  let visual
   let search = () => {
       keyword = document.getElementById("keyword").value
       s_date = document.getElementById("s_date").value
@@ -24,8 +26,12 @@
       fastapi('get', '/api/stock/list', params, (json) => {
 
           if(json[0] != undefined){
+
               // content.style.display = 'block'
-              stock_list = json
+               stock_list = json[0]
+               visual = '<div>' + json[1] + '</div>'
+              console.log(visual)
+               me.innerHTML = visual;
           }
       })
   }
@@ -67,6 +73,9 @@
                 <td>{list.basDt}</td>
             </tr>
         {/each}
-        <iframe src="test.html" width="800" height="600"></iframe>
+        <div bind:this={me}></div>
+        <!--{#if stock_list.length != 0}-->
+        <!--    {visual}-->
+        <!--{/if}-->
     </table>
 </div>

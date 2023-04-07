@@ -60,6 +60,7 @@ class stock_info:
         fig, ax = plt.subplots()
         ax.plot(labels, dataframe)
 
-        mpld3.save_html(fig, 'test.svelte')
+        test = mpld3.fig_to_html(fig)
+        print(test)
 
-        return result
+        return result, test
