@@ -3,11 +3,13 @@
 
     export let params = {}
     let keyword = params.keyword
+    let baseDt = params.baseDt
     let stock_view = {}
 
     function get_stock_dividend() {
         params = {
-            keyword: keyword
+            keyword: keyword,
+            baseDt: baseDt
         }
         fastapi('get', '/api/stock/view', params, (json) => {
           if(json[0] != undefined){

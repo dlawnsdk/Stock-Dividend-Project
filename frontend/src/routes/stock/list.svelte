@@ -3,13 +3,11 @@
   import { link } from 'svelte-spa-router'
 
   let stock_list = []
-  let stock_dividend = {}
   let content
   let keyword
   let s_date
   let e_date
-  let me;
-  let visual
+
   let search = () => {
       keyword = document.getElementById("keyword").value
       s_date = document.getElementById("s_date").value
@@ -28,11 +26,19 @@
           if(json[0] != undefined){
 
               // content.style.display = 'block'
-               stock_list = json[0]
-               visual = '<div>' + json[1] + '</div>'
-              console.log(visual)
-               me.innerHTML = visual;
+               stock_list = json
           }
+      })
+  }
+
+  let graph = () => {
+       let params = {
+          keyword: keyword,
+          s_date : s_date,
+          e_date : e_date
+      }
+      fastapi('get', '/api/stock/graph', params, (json) => {
+
       })
   }
 
@@ -66,16 +72,15 @@
             </tr>
         </thead>
         {#each stock_list as list}
-            {keyword}
             <tr>
-                <td><a use:link href="/stock/view/{list.itmsNm}">{list.itmsNm}</a></td>
+                <td><a use:link href="/stock/view/{list.itmsNm}/{list.basDt}">{list.itmsNm}</a></td>
                 <td>{list.clpr}</td>
                 <td>{list.basDt}</td>
             </tr>
         {/each}
-        <div bind:this={me}></div>
-        <!--{#if stock_list.length != 0}-->
-        <!--    {visual}-->
-        <!--{/if}-->
+
+        {#if stock_list.length != 0}
+            <button on:click={graph}>그래프 보기</button>
+        {/if}
     </table>
 </div>

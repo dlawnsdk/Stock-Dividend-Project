@@ -17,7 +17,7 @@
     '/board/view/:board_id': view,
     '/board/edit/:board_id': edit,
     '/stock/list': stock_list,
-    '/stock/view/:keyword': stock_view,
+    '/stock/view/:keyword/:baseDt': stock_view,
   }
 </script>
 <Router {routes}/>
