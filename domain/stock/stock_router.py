@@ -1,7 +1,7 @@
 from fastapi import APIRouter
 
 from domain.stock.stock_info import stock_info
-from domain.stock.stock_info import stock_dividend2
+from domain.stock.stock_info import stockDividend
 
 router = APIRouter(prefix="/api/stock")
 
@@ -34,7 +34,7 @@ def stock_information(keyword: str = '', s_date : str = '', e_date : str = ''):
 def stock_dividend(keyword: str = '', baseDt : str = ''):
     print(keyword, baseDt)
 
-    sotckDividend = stock_dividend2(keyword, baseDt)
+    sotckDividend = stockDividend(keyword, baseDt)
     result = sotckDividend.stock_info()
     print(result)
     return result

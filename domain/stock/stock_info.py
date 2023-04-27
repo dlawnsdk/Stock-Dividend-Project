@@ -66,16 +66,17 @@ class stock_info:
         plt.plot(labels, dataframe)
         plt.show()
 
-class stock_dividend2:
+class stockDividend:
     def __init__(self, keyword: str, baseDt: str):
         self.keyword = keyword
         self.baseDt = baseDt
 
     def stock_info(self):
+        print("배당정보 조회 시작")
         url = 'http://apis.data.go.kr/1160100/service/GetStocDiviInfoService/getDiviInfo'
         params = {
             'serviceKey': 'X3EjOtLbzPsZO0sDXdwImY5+EfRe0rrb7O8XtPHRhvjzFNghyIHx+41YK8EZETVdI5qMID3aww6/KDrwAFg9fA==',
-            'pageNo': '1', 'resultType': 'json', 'stckIssuCmpyNm': self.keyword, 'basDt': self.baseDt
+            'pageNo': '1', 'resultType': 'json', 'stckIssuCmpyNm': self.keyword
         }
 
         stock_list: Response = requests.get(url, params=params)  # requests.models.response

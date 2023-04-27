@@ -51,7 +51,8 @@
     <!--{/each}-->
 <input type='date' name='s_date' id="s_date"/>
 <input type='date' name='e_date' id="e_date"/>
-<div bind:this={content}>
+{#if stock_list.length != 0}
+    <div bind:this={content}>
     <table>
       <colgroup>
         <col width="70%"/>
@@ -71,9 +72,12 @@
                 </th>
             </tr>
         </thead>
+        <tr>
+            <td colspan="3" style="text-align: center"><a use:link href="/stock/view/{stock_list[0].itmsNm}/{stock_list[0].basDt}">[{stock_list[0].itmsNm}] 배당정보 보기</a></td>
+        </tr>
         {#each stock_list as list}
             <tr>
-                <td><a use:link href="/stock/view/{list.itmsNm}/{list.basDt}">{list.itmsNm}</a></td>
+                <td>{list.itmsNm}</td>
                 <td>{list.clpr}</td>
                 <td>{list.basDt}</td>
             </tr>
@@ -82,5 +86,7 @@
         {#if stock_list.length != 0}
             <button on:click={graph}>그래프 보기</button>
         {/if}
+
     </table>
 </div>
+    {/if}
